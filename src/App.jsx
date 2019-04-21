@@ -1,4 +1,5 @@
 import React from 'react';
+import Spotify from "spotify-web-api-js";
 
 import './styles/App.css';
 
