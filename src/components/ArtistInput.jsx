@@ -1,6 +1,9 @@
 import React from 'react';
-import Spotify from "spotify-web-api-js";
-import Input from '@material-ui/core/Input';
+import '../styles/artistInput.css';
+import TextField from '@material-ui/core/TextField';
+import List from '@material-ui/core/List';
+import { ListItem, ListItemText } from '@material-ui/core';
+
 
 export default class ArtistInput extends React.Component {
   constructor(props) {
@@ -12,6 +15,7 @@ export default class ArtistInput extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(e) {
@@ -32,22 +36,31 @@ export default class ArtistInput extends React.Component {
     this.setState({ artistResults });
   }
 
+  handleClick() {
+    this.setState({ artistResults: [] });
+  }
+
   render() {
     return (
       // TODO: Add Material UI Component
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input 
-            placeholder="Search for artist..."
-            value={this.state.search}
+      <div className="artist-search-container">
+        <form className="marginNormal" onSubmit={this.handleSubmit} noValidate autoComplete="off">
+          <TextField 
+            id="outlined-name"
+            label="Search for an artist"
+            variant="outlined"
             onChange={this.handleChange}
+            fullWidth={true}
           />
+          <List >
+            {this.state.artistResults.map(artist => (
+              <ListItem button onClick={this.handleClick}>
+                <ListItemText primary={artist.name} />
+              </ListItem>
+            ))}
+          </List>
         </form>
-        {this.state.artistResults.map(artist => (
-          <p>{artist.name}</p>
-        ))}
       </div>
-      
     );
   }
 }

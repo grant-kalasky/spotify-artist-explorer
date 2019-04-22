@@ -56,7 +56,6 @@ class App extends React.Component {
       }
       return(
         <ArtistInput spotifyClient={this.state.mySpotifyClient} />
-        // <p>Hello world</p>
       );
     }
 }
