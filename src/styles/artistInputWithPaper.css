@@ -1,0 +1,20 @@
+.artist-search-container {
+    padding-left: 4em;
+    padding-top: 2em;
+    padding-right: 4em;
+}
+
+.root {
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    margin-left: 8px;
+    flex: 1;
+}
+
+.iconButton {
+    padding: 10;
+}

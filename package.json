@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
     "react": "^16.8.6",
+    "react-d3-tree": "^1.12.3",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8",
     "spotify-web-api-js": "^1.2.0"

@@ -4,6 +4,8 @@ import Spotify from "spotify-web-api-js";
 
 import './styles/App.css';
 import ArtistInput from './components/ArtistInput';
+import ArtistInputWithPaper from './components/ArtistInputWithPaper';
+import ArtistTree from './components/ArtistTree';
 
 class App extends React.Component {
     constructor(props) {
@@ -14,8 +16,12 @@ class App extends React.Component {
           devices: [],
           currentDevice: "",
           authToken: "",
-          mySpotifyClient: ""
+          mySpotifyClient: "",
+          rootArtist: "",
+          isRootSelected: false
       };
+
+      this.handleSelectArtist = this.handleSelectArtist.bind(this);
     }
 
     async componentDidMount() {
@@ -40,9 +46,23 @@ class App extends React.Component {
     }
 
     
+    handleSelectArtist(artist) {
+      this.setState({
+        rootArtist: artist,
+        isRootSelected: true
+      });
+    }
+
+    
 
     render() {
-      if (!this.state.authenticated) {
+      const {
+        authenticated,
+        mySpotifyClient,
+        rootArtist,
+        isRootSelected
+      } = this.state;
+      if (!authenticated) {
         return(
           <a
             href={`https://accounts.spotify.com/authorize/?client_id=c905808b09014699b50463170c5c27cb&response_type=token&redirect_uri=${window
@@ -55,7 +75,14 @@ class App extends React.Component {
         );
       }
       return(
-        <ArtistInput spotifyClient={this.state.mySpotifyClient} />
+        <div className="flex-container">
+          <ArtistInput spotifyClient={mySpotifyClient} onSubmit={this.handleSelectArtist} />
+          <div className="tree-container" >
+            {isRootSelected && 
+              <ArtistTree root={rootArtist} />
+            }
+          </div>
+        </div>
       );
     }
 }
