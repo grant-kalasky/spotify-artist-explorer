@@ -69,13 +69,15 @@ export default class ArtistInputWithPaper extends React.Component {
                 <IconButton classname="iconButton" aria-label="Search" onClick={this.handleSubmit} >
                     <SearchIcon />
                 </IconButton>
-                <List >
-                    {this.state.artistResults.map(artist => (
-                        <ListItem button onClick={this.handleClick} divider={true}>
-                            <ListItemText primary={artist.name} />
-                        </ListItem>
-                    ))}
-                </List>
+            </Paper>
+            <Paper>
+              <List >
+                {this.state.artistResults.map(artist => (
+                    <ListItem button onClick={this.handleClick} divider={true}>
+                        <ListItemText primary={artist.name} />
+                    </ListItem>
+                ))}
+              </List>
             </Paper>
         </div>
         
