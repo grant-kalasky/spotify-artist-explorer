@@ -47,7 +47,6 @@ export default class ArtistInput extends React.Component {
 
   render() {
     return (
-      // TODO: Add Material UI Component
       <div className="artist-search-container">
         <form className="marginNormal" onSubmit={this.handleSubmit} noValidate autoComplete="off">
           <TextField 

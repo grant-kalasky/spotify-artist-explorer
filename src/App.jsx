@@ -79,7 +79,7 @@ class App extends React.Component {
           <ArtistInput spotifyClient={mySpotifyClient} onSubmit={this.handleSelectArtist} />
           <div className="tree-container" >
             {isRootSelected && 
-              <ArtistTree root={rootArtist} />
+              <ArtistTree spotifyClient={mySpotifyClient} root={rootArtist} />
             }
           </div>
         </div>
