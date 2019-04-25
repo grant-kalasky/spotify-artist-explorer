@@ -44,7 +44,6 @@ class App extends React.Component {
         });
       }
     }
-
     
     handleSelectArtist(artist) {
       this.setState({
@@ -52,8 +51,6 @@ class App extends React.Component {
         isRootSelected: true
       });
     }
-
-    
 
     render() {
       const {
