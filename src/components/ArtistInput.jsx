@@ -11,7 +11,7 @@ export default class ArtistInput extends React.Component {
     this.state = {
       search: "", // initialize search query to empty string
       artistResults: [],
-      selectedArist: ""
+      selectedArtist: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,9 +20,9 @@ export default class ArtistInput extends React.Component {
   }
 
   handleChange(e) {
-    const newAristValue = e.target.value;
+    const newArtistValue = e.target.value;
     this.setState({ 
-      search: newAristValue
+      search: newArtistValue
      });
   }
 
@@ -40,7 +40,7 @@ export default class ArtistInput extends React.Component {
   handleClick(artist) {
     this.setState({ 
       artistResults: [],
-      selectedArist: artist
+      selectedArtist: artist
     });
     this.props.onSubmit(artist);
   }
@@ -56,9 +56,12 @@ export default class ArtistInput extends React.Component {
             onChange={this.handleChange}
             fullWidth={true}
           />
-          <List >
+          <List>
             {this.state.artistResults.map(artist => (
-              <ListItem button onClick={() => this.handleClick(artist)} divider={true}>
+              <ListItem button 
+                  key={artist.id}
+                  onClick={() => this.handleClick(artist)}
+                  divider={true}>
                 <ListItemText primary={artist.name} />
               </ListItem>
             ))}

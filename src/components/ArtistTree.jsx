@@ -2,6 +2,8 @@ import React from 'react';
 import Tree from 'react-d3-tree';
 
 export default class ArtistTree extends React.Component {
+  _rendered = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -29,21 +31,26 @@ export default class ArtistTree extends React.Component {
       }
       rootNode.children.push(currNode);
     }
-
-    this.setState({ 
-      treeData: [rootNode]
-     });
+    
+    if (!this._rendered) {
+      this._rendered = true;
+      this.setState({ 
+        treeData: [rootNode]
+       });
+    }
   }
 
   // Pings API for related artists and adds them as children to current branch
   async getRelatedArtists(artist) {
     const relatedArtists = await this.props.spotifyClient.getArtistRelatedArtists(artist.id);
-    return(relatedArtists.artists);
+    return relatedArtists.artists;
   }
 
   render() {
-    this.createTree();
-    return(
+    if (!this._rendered) {
+      this.createTree();
+    }
+    return (
       <div className="tree-component-wrapper">
         <Tree data={this.state.treeData} />
       </div>
