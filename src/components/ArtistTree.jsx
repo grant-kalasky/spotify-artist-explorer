@@ -13,8 +13,8 @@ export default class ArtistTree extends React.Component {
     this.state = {
       rootArtist: this.props.root,
       treeData: [],
-      depthLimit: 5, 
-      childLimit: 5,
+      depthLimit: 5,
+      childLimit: 4,
       translate: {
         x: window.innerWidth / 2,
         y: window.innerHeight / 2
@@ -41,28 +41,38 @@ export default class ArtistTree extends React.Component {
       children: []
     }
 
-    var rootRelatedArtists = await this.getRelatedArtists(rootArtist);
+    rootNode.children = await this.addChildren(rootArtist, rootNode.children, 1);
 
-    for (let i = 0; i < this.state.childLimit; i++) {
-      let currNode = {
-        name: rootRelatedArtists[i].name,
-        _collapsed: true,
-        children: []
-      }
-      rootNode.children.push(currNode);
-    }
-    
     this.setState({ 
       treeData: [rootNode]
     });
     
     this._isMounted = true;
-    // if (!this._rendered) {
-    //   this._rendered = true;
-    //   this.setState({ 
-    //     treeData: [rootNode]
-    //    });
-    // }
+  }
+
+
+  async addChildren(parentArtist, children, currDepth) {
+    var nodeLimit = this.state.nodeLimit;
+    var childLimit = this.state.childLimit;
+    var depthLimit = this.state.depthLimit;
+
+    var rootRelatedArtists = await this.getRelatedArtists(parentArtist);
+
+    // recursive base case
+    if (children.length === 0 && currDepth < depthLimit) {
+      for (let i = 0; i < childLimit; i++) {
+        let currNode = {
+          name: rootRelatedArtists[i].name,
+          _collapsed: true,
+          children: []
+        }
+        currNode.children = await this.addChildren(rootRelatedArtists[i], currNode.children, currDepth + 1);
+
+        children.push(currNode);
+      }
+      
+    }
+    return(children);
   }
 
   // Pings API for related artists and adds them as children to current branch
