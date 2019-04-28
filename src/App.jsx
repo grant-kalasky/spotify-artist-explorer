@@ -2,7 +2,6 @@ import React from 'react';
 import Spotify from 'spotify-web-api-js';
 import './styles/App.css';
 import ArtistInput from './components/ArtistInput';
-import ArtistInputWithPaper from './components/ArtistInputWithPaper';
 import ArtistTree from './components/ArtistTree';
 
 export default class App extends React.Component {

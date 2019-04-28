@@ -1,0 +1,11 @@
+.tree-component-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.loading-component-wrapper {
+    left: 50%;
+    margin: auto;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

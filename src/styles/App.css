@@ -33,6 +33,6 @@
 }
 
 .tree-container {
-  width: 50em;
-  height: 20em;
+  width: 100%;
+  height: 100vh;
 }
