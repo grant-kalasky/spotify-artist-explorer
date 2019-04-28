@@ -2,10 +2,8 @@ import React from 'react';
 import Tree from 'react-d3-tree';
 import '../styles/ArtistTree.css';
 
-
 export default class ArtistTree extends React.Component {
   _isMounted = false;
-  _rendered = false;
 
   constructor(props) {
     super(props);
@@ -50,11 +48,9 @@ export default class ArtistTree extends React.Component {
     this._isMounted = true;
   }
 
-
   async addChildren(parentArtist, children, currDepth) {
-    var nodeLimit = this.state.nodeLimit;
-    var childLimit = this.state.childLimit;
     var depthLimit = this.state.depthLimit;
+    var childLimit = this.state.childLimit;
 
     var rootRelatedArtists = await this.getRelatedArtists(parentArtist);
 
@@ -72,7 +68,7 @@ export default class ArtistTree extends React.Component {
       }
       
     }
-    return(children);
+    return children;
   }
 
   // Pings API for related artists and adds them as children to current branch
@@ -85,13 +81,13 @@ export default class ArtistTree extends React.Component {
     this.componentDidMount();
 
     if (this._isMounted) {
-      return(
+      return (
         <div className="tree-component-wrapper">
-        <Tree 
-          data={this.state.treeData} 
-          translate={this.state.translate}
-        />
-      </div>
+          <Tree 
+            data={this.state.treeData} 
+            translate={this.state.translate}
+          />
+        </div>
       );
     }
     return (

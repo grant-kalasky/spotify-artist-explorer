@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import { ListItem, ListItemText } from '@material-ui/core';
 
-
 export default class ArtistInput extends React.Component {
   constructor(props) {
     super(props);
