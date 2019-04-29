@@ -40,14 +40,14 @@
 .tree-container {
   width: 62%;
   float: left;
-  height: 500px;
+  height: 87vh;
   background-color: white;
   overflow:hidden;
 }
 .sidebar-container {
   width: 38%;
   float: left;
-  height: 500px;
+  height: 87vh;
   background-color: white;
 }
 .card-container {

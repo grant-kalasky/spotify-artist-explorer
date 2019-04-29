@@ -27,7 +27,7 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 const styles = theme => ({
     card: {
-      borderRadius: 12,
+      borderRadius: 10,
     },
     media: {
       height: 0,
