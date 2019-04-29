@@ -27,7 +27,7 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 const styles = theme => ({
     card: {
-      borderRadius: 10,
+      borderRadius: 12,
     },
     media: {
       height: 0,
@@ -90,20 +90,20 @@ class ArtistSidebar extends React.Component {
 
   async getTopTracks() {
     const tracksObject = await this.props.spotifyClient.getArtistTopTracks(this.state.rootArtist.id, "US");
-    // console.log(Object.values(tracksObject.tracks));
-    // var trackNames = Object.values(tracksObject.tracks).map(function (track) {
-    //     return track.name
-    // });
-    // var trackIDs = Object.values(tracksObject.tracks).map(function (track) {
-    //     return track.id
-    // });
+    console.log(Object.values(tracksObject.tracks));
+    var trackNames = Object.values(tracksObject.tracks).map(function (track) {
+        return track.name
+    });
+    var trackIDs = Object.values(tracksObject.tracks).map(function (track) {
+        return track.id
+    });
     var trackArray = Object.values(tracksObject.tracks).map(function (track) {
         return [track.name, track.id]
     });
     console.log(trackArray);
     this.setState({
-        // topTrackNames: trackNames,
-        // topTrackIDs: trackIDs,
+        topTrackNames: trackNames,
+        topTrackIDs: trackIDs,
         topTrackArray: trackArray,
     });
   }
