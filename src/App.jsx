@@ -3,6 +3,7 @@ import Spotify from 'spotify-web-api-js';
 import './styles/App.css';
 import ArtistInput from './components/ArtistInput';
 import ArtistTree from './components/ArtistTree';
+import ArtistSidebar from './components/ArtistSidebar';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -70,13 +71,20 @@ export default class App extends React.Component {
     }
     return (
       <div className="flex-container">
-        <ArtistInput spotifyClient={mySpotifyClient} onSubmit={this.handleSelectArtist} />
-        <div className="tree-container" >
-          {isRootSelected && 
-            <ArtistTree spotifyClient={mySpotifyClient} root={rootArtist} />
-          }
+          <ArtistInput spotifyClient={mySpotifyClient} onSubmit={this.handleSelectArtist} />
+          <div className="tree-container" >
+            {isRootSelected && 
+              <ArtistTree spotifyClient={mySpotifyClient} root={rootArtist} />
+            }
+          </div>
+          <div className="sidebar-container" >
+            <div className="card-container" >
+              {isRootSelected && 
+                <ArtistSidebar spotifyClient={mySpotifyClient} root={rootArtist} />
+              }
+            </div>
+          </div>
         </div>
-      </div>
     );
   }
 }
