@@ -59,6 +59,7 @@ class ArtistSidebar extends React.Component {
     super(props);
     this.state = {
       rootArtist: this.props.root,
+      artist: this.props.root,
       expanded: false,
       topTrackArray: [],
       albumArray: [],
@@ -85,8 +86,8 @@ class ArtistSidebar extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.artist !== prevProps.artist) {
-      this.setState({ artist: this.props.artist }); //this line might be a typo
+    if (this.props.root !== prevProps.root) {
+      this.setState({ rootArtist: this.props.root }); //this line might be a typo
       this._isMounted = false;
       this.componentDidMount();
     }

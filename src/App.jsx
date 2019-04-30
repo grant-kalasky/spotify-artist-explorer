@@ -11,7 +11,6 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       authenticated: false,
-      artists: [],
       devices: [],
       currentDevice: "",
       authToken: "",
@@ -68,6 +67,7 @@ export default class App extends React.Component {
       selectedArtist,
       isRootSelected
     } = this.state;
+
     if (!authenticated) {
       return (
         <a 
@@ -75,8 +75,7 @@ export default class App extends React.Component {
             .location.origin +
             window.location
             .pathname}&scope=user-read-playback-state user-modify-playback-state user-top-read user-read-private`}
-          className="login"
-        >
+          className="login">
         Login with Spotify
         </a>
       );
@@ -92,7 +91,7 @@ export default class App extends React.Component {
         <div className="sidebar-container">
           <div className="card-container">
             {isRootSelected && 
-              <ArtistSidebar spotifyClient={mySpotifyClient} root={rootArtist} />
+              <ArtistSidebar spotifyClient={mySpotifyClient} root={selectedArtist} />
             }
           </div>
         </div>
