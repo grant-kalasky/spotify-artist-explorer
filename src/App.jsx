@@ -4,14 +4,12 @@ import './styles/App.css';
 import ArtistInput from './components/ArtistInput';
 import ArtistTree from './components/ArtistTree';
 import ArtistSidebar from './components/ArtistSidebar';
-import AlbumCard from './components/AlbumCard';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       authenticated: false,
-      artists: [],
       devices: [],
       currentDevice: "",
       authToken: "",
@@ -35,7 +33,6 @@ export default class App extends React.Component {
       this.spotifyClient.setAccessToken(accessToken);
 
       const { devices } = await this.spotifyClient.getMyDevices();
-      // const devices = Object.keys(devicesResp).map(key => devicesResp[key]);
       this.setState({
         authenticated: true,
         devices,
@@ -68,6 +65,7 @@ export default class App extends React.Component {
       selectedArtist,
       isRootSelected
     } = this.state;
+    
     if (!authenticated) {
       return (
         <a 
@@ -75,8 +73,7 @@ export default class App extends React.Component {
             .location.origin +
             window.location
             .pathname}&scope=user-read-playback-state user-modify-playback-state user-top-read user-read-private`}
-          className="login"
-        >
+          className="login">
         Login with Spotify
         </a>
       );
