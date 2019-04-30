@@ -83,6 +83,14 @@ class ArtistSidebar extends React.Component {
       }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.root !== prevProps.root) {
+      this.setState({ rootArtist: this.props.root });
+      this._isMounted = false;
+      this.componentDidMount();
+    }
+  }
+
   async getTopTracks() {
     const tracksObject = await this.props.spotifyClient.getArtistTopTracks(this.state.rootArtist.id, "US");
     console.log(Object.values(tracksObject.tracks));

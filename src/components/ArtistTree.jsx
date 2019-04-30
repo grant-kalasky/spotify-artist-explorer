@@ -30,6 +30,14 @@ export default class ArtistTree extends React.Component {
     this._isMounted = false;
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.root !== prevProps.root) {
+      this.setState({ rootArtist: this.props.root });
+      this._isMounted = false;
+      this.componentDidMount();
+    }
+  }
+
   // Begins constructing tree with root
   async createTree() {
     const rootArtist = this.state.rootArtist;
