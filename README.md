@@ -8,6 +8,8 @@
 
 We built a tool that allows users to easily discover new artists, ones inspired by their current favorite artists. Simply choose an artist and explore their network of related artists to find new music! To run the app in development mode, use the command `npm start` and open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+For the UI, we used Google's [Material-UI](material-ui.com) component library. For the tree visualization, we used the [React D3 tree](https://github.com/bkrem/react-d3-tree) component.
+
 ### Components 
 
 1. **ArtistInput** - Allows users to search for and select an artist to be used as root of tree
