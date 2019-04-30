@@ -88,6 +88,8 @@ class ArtistSidebar extends React.Component {
     if (this.props.root !== prevProps.root) {
       this.setState({ rootArtist: this.props.root });
       this._isMounted = false;
+    }
+    if (!this._isMounted) {
       this.componentDidMount();
     }
   }
@@ -100,6 +102,8 @@ class ArtistSidebar extends React.Component {
     this.setState({
       topTrackArray: trackArray
     });
+
+    this._isMounted = true;
   }
 
   async getAlbums () {
@@ -110,6 +114,8 @@ class ArtistSidebar extends React.Component {
     this.setState({
       albumArray: albumArray
     });
+
+    this._isMounted = true;
   }
 
   async startPlayback(songId) {
@@ -150,7 +156,7 @@ class ArtistSidebar extends React.Component {
             </Typography>
           </CardContent>
           {this.state.topTrackArray.map(song => (
-            <CardContent>
+            <CardContent key={song.toString()}>
               <Typography variant="subtitle2" gutterBottom={false}>
                 {song[0]} 
               </Typography>
@@ -173,7 +179,7 @@ class ArtistSidebar extends React.Component {
           </CardContent>
           <CardContent>
             {this.state.albumArray.map(album => (
-              <AlbumCard name={album[0]} imageURL={album[1]}/>
+              <AlbumCard key={album.toString()} name={album[0]} imageURL={album[1]}/>
             ))}
           </CardContent>
         </CardActionArea>

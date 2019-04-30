@@ -26,10 +26,6 @@ export default class ArtistTree extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
   componentDidUpdate(prevProps) {
     if (this.props.root !== prevProps.root) {
       this.setState({ rootArtist: this.props.root });
@@ -51,7 +47,7 @@ export default class ArtistTree extends React.Component {
     this.setState({ 
       treeData: [rootNode]
     });
-    
+
     this._isMounted = true;
   }
 

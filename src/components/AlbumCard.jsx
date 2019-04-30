@@ -14,42 +14,40 @@ import {
     Grid,
     GridList,
     GridListTile,
-    GridListTileBar,
+    GridListTileBar
 } from "@material-ui/core";
 import {
-    withStyles,
-    MuiThemeProvider,
-    createMuiTheme
-  } from "@material-ui/core/styles";
-
+  withStyles,
+  MuiThemeProvider,
+  createMuiTheme
+} from "@material-ui/core/styles";
 
 const styles = theme => ({
     card: {
-      borderRadius: 10,
+      borderRadius: 10
     },
     media: {
       height: 0,
       paddingTop: '56.25%', // 16:9
-      marginTop:'30',
+      marginTop: '30'
     },
     root: {
-      backgroundColor: 'white',
+      backgroundColor: 'white'
     },
     chip: {
-      margin: theme.spacing.unit - 5,
+      margin: theme.spacing.unit - 5
     },
     actions: {
-      display: 'flex',
-    },
-    
-})
+      display: 'flex'
+    }
+});
 
 class AlbumCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       rootArtist: this.props.root,
-      albumArray: this.props.albumArray,
+      albumArray: this.props.albumArray
     };
   }
 
@@ -62,11 +60,10 @@ class AlbumCard extends React.Component {
           <CardMedia
             className={classes.media}
             image={this.props.imageURL}
-            style = {styles.media}
-            
-            />
+            style={styles.media}
+          />
           <CardContent>
-            <Typography gutterBottom variant="h6" align="center" >
+            <Typography gutterBottom variant="h6" align="center">
               {this.props.name}
             </Typography>
           </CardContent>
@@ -75,4 +72,5 @@ class AlbumCard extends React.Component {
     );
   }
 }
+
 export default withStyles(styles)(AlbumCard);
