@@ -47,9 +47,7 @@ export default class ArtistTree extends React.Component {
       _collapsed: true,
       children: []
     }
-
     rootNode.children = await this.addChildren(rootArtist, rootNode.children, 1);
-
     this.setState({ 
       treeData: [rootNode]
     });

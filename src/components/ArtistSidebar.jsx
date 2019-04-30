@@ -10,13 +10,13 @@ import {
     Chip,
     Button,
     Avatar,
-    Typography,
+    Typography
 } from "@material-ui/core";
 import {
-    withStyles,
-    MuiThemeProvider,
-    createMuiTheme
-  } from "@material-ui/core/styles";
+  withStyles,
+  MuiThemeProvider,
+  createMuiTheme
+} from "@material-ui/core/styles";
 import IconButton from '@material-ui/core/IconButton';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -25,41 +25,40 @@ import AlbumCard from './AlbumCard';
 // import MediaControlCard from './MediaControlCard';
 
 const styles = theme => ({
-    card: {
-      borderRadius: 10,
-    },
-    media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
-      marginTop:'30',
-    },
-    root: {
-      backgroundColor: 'white',
-    },
-    chip: {
-      margin: theme.spacing.unit - 5,
-    },
-    actions: {
-      display: 'flex',
-    },
-    expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: 'rotate(180deg)',
-    },
-})
+  card: {
+    borderRadius: 10
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+    marginTop: '30'
+  },
+  root: {
+    backgroundColor: 'white'
+  },
+  chip: {
+    margin: theme.spacing.unit - 5
+  },
+  actions: {
+    display: 'flex'
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest
+    })
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)'
+  }
+});
 
 class ArtistSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       rootArtist: this.props.root,
-      artist: this.props.root,
       expanded: false,
       topTrackArray: [],
       albumArray: [],
@@ -71,7 +70,7 @@ class ArtistSidebar extends React.Component {
   onMouseOut = () => this.setState({ shadow: 1 });
 
   // handleExpandClick = () => {
-  //   this.setState(state => ({ expanded: !state.expanded }));
+  //   this.setState(prevState => ({ expanded: !prevState.expanded }));
   // };
 
   formatNumber(num) {
@@ -80,14 +79,14 @@ class ArtistSidebar extends React.Component {
 
   componentDidMount() {
     if (!this._isMounted) {
-        this.getTopTracks();
-        this.getAlbums();
-      }
+      this.getTopTracks();
+      this.getAlbums();
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.root !== prevProps.root) {
-      this.setState({ rootArtist: this.props.root }); //this line might be a typo
+      this.setState({ rootArtist: this.props.root });
       this._isMounted = false;
       this.componentDidMount();
     }
@@ -95,39 +94,34 @@ class ArtistSidebar extends React.Component {
 
   async getTopTracks() {
     const tracksObject = await this.props.spotifyClient.getArtistTopTracks(this.state.rootArtist.id, "US");
-    console.log(Object.values(tracksObject.tracks));
-    var trackArray = Object.values(tracksObject.tracks).map(function (track) {
-        return [track.name, track.id]
+    var trackArray = Object.values(tracksObject.tracks).map(function(track) {
+      return [track.name, track.id]
     });
     this.setState({
-        topTrackArray: trackArray,
+      topTrackArray: trackArray
     });
   }
 
   async getAlbums () {
     const albumObject = await this.props.spotifyClient.getArtistAlbums(this.state.rootArtist.id, "album");
-    console.log(Object.values(albumObject.items));
-    var albumArray = Object.values(albumObject.items).map(function (album) {
+    var albumArray = Object.values(albumObject.items).map(function(album) {
       return [album.name, album.images[0].url, album.id, album.external_urls.spotify, album.release_date.substring(0,4)]
     });
-    console.log(albumArray);
     this.setState({
-      albumArray: albumArray,
+      albumArray: albumArray
     });
   }
 
-  // async startPlayback(songId) {
-  //   await this.spotifyClient.play({
-  //     device_id: this.state.currentDevice,
-  //       uris: [`spotify:track:${songId}`]
-  //     });
-  // }
+  async startPlayback(songId) {
+    await this.spotifyClient.play({
+      device_id: this.state.currentDevice,
+      uris: [`spotify:track:${songId}`]
+    });
+  }
 
   render() {
     const { classes } = this.props;
 
-
-    
     return (
       <Card className={classes.card} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
         <CardActionArea>
@@ -144,7 +138,7 @@ class ArtistSidebar extends React.Component {
             </Typography>
             <Typography variant="subtitle1">
               <div>
-                <a href={this.state.rootArtist.external_urls.spotify} target="_blank">View Artist on Spotify</a>
+                <a href={this.state.rootArtist.external_urls.spotify} target="_blank" rel="noopener noreferrer">View Artist on Spotify</a>
               </div>
               <div>Followers: {this.formatNumber(this.state.rootArtist.followers.total)}</div>
               <div>Popularity: {this.state.rootArtist.popularity}/100</div>
@@ -166,6 +160,7 @@ class ArtistSidebar extends React.Component {
             <Typography gutterBottom variant={"h6"}>Genres:</Typography> 
             {this.state.rootArtist.genres.map(genre => (
               <Chip 
+                key={genre.toString()}
                 className={classes.chip}
                 label={genre} 
                 color="secondary"
@@ -173,7 +168,6 @@ class ArtistSidebar extends React.Component {
                 target="_blank" 
                 clickable
                 href={`https://open.spotify.com/search/results/${genre}`}
-                key={genre.toString()}
               />
             ))}
           </CardContent>
@@ -185,10 +179,10 @@ class ArtistSidebar extends React.Component {
         </CardActionArea>
         <CardActions>
           {/* <Button size="small" color="primary">
-          Action1 
+            Action1 
           </Button>
           <Button size="small" color="primary">
-          Action2
+            Action2
           </Button> */}
           {/* <MediaControlCard></MediaControlCard> */}
         </CardActions>
