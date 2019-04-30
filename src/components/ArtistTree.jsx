@@ -71,10 +71,8 @@ export default class ArtistTree extends React.Component {
           children: []
         }
         currNode.children = await this.addChildren(rootRelatedArtists[i], currNode.children, currDepth + 1);
-
         children.push(currNode);
       }
-      
     }
     return children;
   }
