@@ -146,8 +146,8 @@ class ArtistSidebar extends React.Component {
               <div>
                 <a href={this.state.rootArtist.external_urls.spotify} target="_blank">View Artist on Spotify</a>
               </div>
-              <div>Followers: {this.state.rootArtist.followers.total}</div>
-              <div>Popularity: {this.state.rootArtist.popularity}</div>
+              <div>Followers: {this.formatNumber(this.state.rootArtist.followers.total)}</div>
+              <div>Popularity: {this.state.rootArtist.popularity}/100</div>
             </Typography>
           </CardContent>
           <CardContent>
