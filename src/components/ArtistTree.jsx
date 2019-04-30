@@ -14,8 +14,8 @@ export default class ArtistTree extends React.Component {
       depthLimit: 5,
       childLimit: 4,
       translate: {
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2
+        x: window.innerWidth / 4,
+        y: window.innerHeight / 2.5
       }
     };
   }
