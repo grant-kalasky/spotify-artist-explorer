@@ -24,7 +24,6 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 // import MediaControlCard from './MediaControlCard';
 
-
 const styles = theme => ({
     card: {
       borderRadius: 10,
@@ -58,8 +57,6 @@ const styles = theme => ({
     }
 })
 
-
-
 class ArtistSidebar extends React.Component {
   constructor(props) {
     super(props);
@@ -73,14 +70,12 @@ class ArtistSidebar extends React.Component {
     };
   }
   
-
   onMouseOver = () => this.setState({ shadow: 3 });
   onMouseOut = () => this.setState({ shadow: 1 });
 
   // handleExpandClick = () => {
   //   this.setState(state => ({ expanded: !state.expanded }));
   // };
-
 
   componentDidMount() {
     if (!this._isMounted) {
@@ -108,21 +103,17 @@ class ArtistSidebar extends React.Component {
     });
   }
 
-    // async startPlayback(songId) {
-    //   await this.spotifyClient.play({
-    //     device_id: this.state.currentDevice,
-    //      uris: [`spotify:track:${songId}`]
-    //     });
-    // }
+  // async startPlayback(songId) {
+  //   await this.spotifyClient.play({
+  //     device_id: this.state.currentDevice,
+  //       uris: [`spotify:track:${songId}`]
+  //     });
+  // }
 
-
-
-
-  
   render() {
     const { classes } = this.props;
 
-    return(
+    return (
         <Card className={classes.card} onMouseOver={this.onMouseOver} 
               onMouseOut={this.onMouseOut}>
           <CardActionArea>
@@ -191,7 +182,6 @@ class ArtistSidebar extends React.Component {
 
 export default withStyles(styles)(ArtistSidebar);
 
-
 // async getTracks() {
 //   const tracks = await fetch(`https://api.spotify.com/v1/artists/${this.state.rootArtist.id}/top-tracks`, {
 //     method: 'GET',
@@ -203,4 +193,3 @@ export default withStyles(styles)(ArtistSidebar);
 //   this.setState({
 //     tracks: tracksJson.tracks,
 //   })
- 

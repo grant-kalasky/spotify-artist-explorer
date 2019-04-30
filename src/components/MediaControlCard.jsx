@@ -35,7 +35,6 @@ const styles = theme => ({
       width: 38,
     },
 })
-  
 
 class MediaControlCard extends React.Component {
     constructor(props) {
