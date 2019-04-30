@@ -32,11 +32,18 @@
   }
 }
 
+.login {
+  display: inline-block;
+  margin-top: 2em;
+  margin-left: 2em;
+}
+
 .body-container {
   width: 100%;
   background-color: white;
   margin: auto;
 }
+
 .tree-container {
   width: 62%;
   float: left;
@@ -44,12 +51,14 @@
   background-color: white;
   overflow:hidden;
 }
+
 .sidebar-container {
   width: 38%;
   float: left;
   height: 87vh;
   background-color: white;
 }
+
 .card-container {
   width: 80%;
   height:100%;

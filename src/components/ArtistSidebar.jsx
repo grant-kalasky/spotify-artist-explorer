@@ -61,7 +61,7 @@ class ArtistSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rootArtist: this.props.root,
+      artist: this.props.artist,
       expanded: false,
       topTrackNames: [],
       topTrackIDs: [],
@@ -84,15 +84,15 @@ class ArtistSidebar extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.root !== prevProps.root) {
-      this.setState({ rootArtist: this.props.root });
+    if (this.props.artist !== prevProps.artist) {
+      this.setState({ artist: this.props.artist });
       this._isMounted = false;
       this.componentDidMount();
     }
   }
 
   async getTopTracks() {
-    const tracksObject = await this.props.spotifyClient.getArtistTopTracks(this.state.rootArtist.id, "US");
+    const tracksObject = await this.props.spotifyClient.getArtistTopTracks(this.state.artist.id, "US");
     var trackNames = Object.values(tracksObject.tracks).map(function(track) {
       return track.name
     });
@@ -120,67 +120,67 @@ class ArtistSidebar extends React.Component {
     const { classes } = this.props;
 
     return (
-        <Card className={classes.card} onMouseOver={this.onMouseOver} 
-            onMouseOut={this.onMouseOut}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={this.state.rootArtist.images[0].url}
-              style = {styles.media}
-            />
-          </CardActionArea>
-          <CardActionArea>
+      <Card className={classes.card} onMouseOver={this.onMouseOver} 
+          onMouseOut={this.onMouseOut}>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image={this.state.artist.images[0].url}
+            style={styles.media}
+          />
+        </CardActionArea>
+        <CardActionArea>
+          <CardContent>
+            <Typography gutterBottom variant="h4" align="left">
+              {this.state.artist.name}
+            </Typography>
+            <Typography variant="subtitle1">
+              <div>
+                <a href={this.state.artist.external_urls.spotify} target="_blank">View Artist on Spotify</a>
+              </div>
+              <div>Followers: {this.state.artist.followers.total}</div>
+              <div>Popularity: {this.state.artist.popularity}</div>
+              {/* {this.state.topTracks}  */}
+            </Typography>
+          </CardContent>
+          <CardContent>
+            <Typography variant="h6">
+              Top Tracks: 
+            </Typography>
+          </CardContent>
+          {this.state.topTrackArray.map(song => (
             <CardContent>
-              <Typography gutterBottom variant="h4" align="left" >
-                {this.state.rootArtist.name}
-              </Typography>
-              <Typography variant="subtitle1" >
-                <div>
-                  <a href={this.state.rootArtist.external_urls.spotify} target="_blank">View Artist on Spotify</a>
-                </div>
-                <div>Followers: {this.state.rootArtist.followers.total}</div>
-                <div>Popularity: {this.state.rootArtist.popularity}</div>
-                {/* {this.state.topTracks}  */}
+              <Typography variant="subtitle2" gutterBottom={false}>
+                {song[0]} 
               </Typography>
             </CardContent>
-            <CardContent>
-              <Typography variant="h6" >
-                Top Tracks: 
-              </Typography>
-            </CardContent>
-            {this.state.topTrackArray.map(song => (
-              <CardContent>
-                <Typography variant="subtitle2" gutterBottom={false}>
-                  {song[0]} 
-                </Typography>
-              </CardContent>
+          ))}
+          <CardContent>
+            <Typography gutterBottom variant={"h6"}>Genres:</Typography> 
+            {this.state.artist.genres.map(genre => (
+              <Chip 
+                className={classes.chip}
+                label={genre} 
+                color="secondary"
+                component="a"
+                target="_blank" 
+                clickable
+                href={`https://open.spotify.com/search/results/${genre}`}
+                key={genre.toString()}
+              />
             ))}
-            <CardContent>
-              <Typography gutterBottom variant={"h6"} >Genres:</Typography> 
-              {this.state.rootArtist.genres.map(genre => (
-                <Chip 
-                  className={classes.chip}
-                  label={genre} 
-                  color="secondary"
-                  component="a"
-                  target="_blank" 
-                  clickable
-                  href={`https://open.spotify.com/search/results/${genre}`}
-                  key={genre.toString()}
-                />
-              ))}
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            {/* <Button size="small" color="primary">
-            Action1 
-            </Button>
-            <Button size="small" color="primary">
-            Action2
-            </Button> */}
-            {/* <MediaControlCard></MediaControlCard> */}
-          </CardActions>
-        </Card>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          {/* <Button size="small" color="primary">
+          Action1 
+          </Button>
+          <Button size="small" color="primary">
+          Action2
+          </Button> */}
+          {/* <MediaControlCard></MediaControlCard> */}
+        </CardActions>
+      </Card>
     );
   }
 }
@@ -188,7 +188,7 @@ class ArtistSidebar extends React.Component {
 export default withStyles(styles)(ArtistSidebar);
 
 // async getTracks() {
-//   const tracks = await fetch(`https://api.spotify.com/v1/artists/${this.state.rootArtist.id}/top-tracks`, {
+//   const tracks = await fetch(`https://api.spotify.com/v1/artists/${this.state.artist.id}/top-tracks`, {
 //     method: 'GET',
 //     headers: { 
 //       Authorization: this.state.authToken,
