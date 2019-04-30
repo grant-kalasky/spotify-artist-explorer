@@ -107,7 +107,10 @@ class ArtistSidebar extends React.Component {
   }
 
   async getAlbums () {
-    const albumObject = await this.props.spotifyClient.getArtistAlbums(this.state.rootArtist.id, "album");
+    const albumObject = await this.props.spotifyClient.getArtistAlbums(this.state.rootArtist.id, {
+      include_groups: "album",
+      limit: 10
+    });
     var albumArray = Object.values(albumObject.items).map(function(album) {
       return [album.name, album.images[0].url, album.id, album.external_urls.spotify, album.release_date.substring(0,4)]
     });
@@ -144,26 +147,27 @@ class ArtistSidebar extends React.Component {
             </Typography>
             <Typography variant="subtitle1">
               <div>
-                <a href={this.state.rootArtist.external_urls.spotify} target="_blank" rel="noopener noreferrer">View Artist on Spotify</a>
+                <a 
+                  href={this.state.rootArtist.external_urls.spotify}
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  View Artist on Spotify
+                </a>
               </div>
               <div>Followers: {this.formatNumber(this.state.rootArtist.followers.total)}</div>
               <div>Popularity: {this.state.rootArtist.popularity}/100</div>
             </Typography>
           </CardContent>
           <CardContent>
-            <Typography variant="h6">
-              Top Tracks: 
-            </Typography>
+            <Typography variant="h6">Top Tracks</Typography>
           </CardContent>
           {this.state.topTrackArray.map(song => (
             <CardContent key={song.toString()}>
-              <Typography variant="subtitle2" gutterBottom={false}>
-                {song[0]} 
-              </Typography>
+              <Typography>{song[0]}</Typography>
             </CardContent>
           ))}
           <CardContent>
-            <Typography gutterBottom variant={"h6"}>Genres:</Typography> 
+            <Typography variant="h6">Genres</Typography> 
             {this.state.rootArtist.genres.map(genre => (
               <Chip 
                 key={genre.toString()}
@@ -178,8 +182,9 @@ class ArtistSidebar extends React.Component {
             ))}
           </CardContent>
           <CardContent>
+            <Typography gutterBottom variant="h6">Albums</Typography> 
             {this.state.albumArray.map(album => (
-              <AlbumCard key={album.toString()} name={album[0]} imageURL={album[1]}/>
+              <AlbumCard key={album.toString()} name={album[0]} imageURL={album[1]} />
             ))}
           </CardContent>
         </CardActionArea>

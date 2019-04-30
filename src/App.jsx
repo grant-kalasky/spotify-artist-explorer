@@ -73,7 +73,7 @@ export default class App extends React.Component {
             window.location
             .pathname}&scope=user-read-playback-state user-modify-playback-state user-top-read user-read-private`}
           className="login">
-        Login with Spotify
+          Login with Spotify
         </a>
       );
     }
