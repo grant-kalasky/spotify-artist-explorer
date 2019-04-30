@@ -65,7 +65,6 @@ export default class App extends React.Component {
       selectedArtist,
       isRootSelected
     } = this.state;
-    
     if (!authenticated) {
       return (
         <a 
@@ -89,7 +88,7 @@ export default class App extends React.Component {
         <div className="sidebar-container">
           <div className="card-container">
             {isRootSelected && 
-              <ArtistSidebar spotifyClient={mySpotifyClient} artist={selectedArtist} />
+              <ArtistSidebar spotifyClient={mySpotifyClient} root={selectedArtist} />
             }
           </div>
         </div>

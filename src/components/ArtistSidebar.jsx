@@ -59,7 +59,8 @@ class ArtistSidebar extends React.Component {
     super(props);
     this.state = {
       rootArtist: this.props.root,
-      // expanded: false,
+      artist: this.props.root,
+      expanded: false,
       topTrackArray: [],
       albumArray: [],
       shadow: 1
@@ -74,20 +75,19 @@ class ArtistSidebar extends React.Component {
   // };
 
   formatNumber(num) {
-    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   }
 
   componentDidMount() {
     if (!this._isMounted) {
         this.getTopTracks();
         this.getAlbums();
-
       }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.artist !== prevProps.artist) {
-      this.setState({ artist: this.props.artist });
+    if (this.props.root !== prevProps.root) {
+      this.setState({ rootArtist: this.props.root }); //this line might be a typo
       this._isMounted = false;
       this.componentDidMount();
     }
@@ -108,7 +108,7 @@ class ArtistSidebar extends React.Component {
     const albumObject = await this.props.spotifyClient.getArtistAlbums(this.state.rootArtist.id, "album");
     console.log(Object.values(albumObject.items));
     var albumArray = Object.values(albumObject.items).map(function (album) {
-      return  [album.name, album.images[0].url, album.id, album.external_urls.spotify, album.release_date.substring(0,4)]
+      return [album.name, album.images[0].url, album.id, album.external_urls.spotify, album.release_date.substring(0,4)]
     });
     console.log(albumArray);
     this.setState({
@@ -126,28 +126,28 @@ class ArtistSidebar extends React.Component {
   render() {
     const { classes } = this.props;
 
+
+    
     return (
-      <Card className={classes.card} onMouseOver={this.onMouseOver} 
-          onMouseOut={this.onMouseOut}>
+      <Card className={classes.card} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image={this.state.artist.images[0].url}
+            image={this.state.rootArtist.images[0].url}
             style={styles.media}
           />
         </CardActionArea>
         <CardActionArea>
           <CardContent>
             <Typography gutterBottom variant="h4" align="left">
-              {this.state.artist.name}
+              {this.state.rootArtist.name}
             </Typography>
             <Typography variant="subtitle1">
               <div>
-                <a href={this.state.artist.external_urls.spotify} target="_blank">View Artist on Spotify</a>
+                <a href={this.state.rootArtist.external_urls.spotify} target="_blank">View Artist on Spotify</a>
               </div>
-              <div>Followers: {this.state.artist.followers.total}</div>
-              <div>Popularity: {this.state.artist.popularity}</div>
-              {/* {this.state.topTracks}  */}
+              <div>Followers: {this.state.rootArtist.followers.total}</div>
+              <div>Popularity: {this.state.rootArtist.popularity}</div>
             </Typography>
           </CardContent>
           <CardContent>
@@ -164,7 +164,7 @@ class ArtistSidebar extends React.Component {
           ))}
           <CardContent>
             <Typography gutterBottom variant={"h6"}>Genres:</Typography> 
-            {this.state.artist.genres.map(genre => (
+            {this.state.rootArtist.genres.map(genre => (
               <Chip 
                 className={classes.chip}
                 label={genre} 
@@ -178,20 +178,10 @@ class ArtistSidebar extends React.Component {
             ))}
           </CardContent>
           <CardContent>
-            <Typography variant="h6" >
-                Top Tracks:
-            </Typography>
-          </CardContent>
-            {this.state.topTrackArray.map(song => (
-                  <CardContent>
-                      <Typography variant="subtitle2" gutterBottom={false}>
-                          {song[0]} 
-                      </Typography>
-                  </CardContent>
-            ))}
             {this.state.albumArray.map(album => (
               <AlbumCard name={album[0]} imageURL={album[1]}/>
             ))}
+          </CardContent>
         </CardActionArea>
         <CardActions>
           {/* <Button size="small" color="primary">
