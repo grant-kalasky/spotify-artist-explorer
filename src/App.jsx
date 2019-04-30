@@ -4,6 +4,7 @@ import './styles/App.css';
 import ArtistInput from './components/ArtistInput';
 import ArtistTree from './components/ArtistTree';
 import ArtistSidebar from './components/ArtistSidebar';
+import AlbumCard from './components/AlbumCard';
 
 export default class App extends React.Component {
   constructor(props) {

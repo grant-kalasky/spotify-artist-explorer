@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
     Card,
     CardHeader,
@@ -22,6 +21,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
+import AlbumCard from './AlbumCard';
 // import MediaControlCard from './MediaControlCard';
 
 const styles = theme => ({
@@ -52,9 +52,6 @@ const styles = theme => ({
     expandOpen: {
       transform: 'rotate(180deg)',
     },
-    h3: {
-      fontWeight: "bold",
-    }
 })
 
 class ArtistSidebar extends React.Component {
@@ -62,10 +59,9 @@ class ArtistSidebar extends React.Component {
     super(props);
     this.state = {
       rootArtist: this.props.root,
-      expanded: false,
-      topTrackNames: [],
-      topTrackIDs: [],
+      // expanded: false,
       topTrackArray: [],
+      albumArray: [],
       shadow: 1
     };
   }
@@ -77,9 +73,15 @@ class ArtistSidebar extends React.Component {
   //   this.setState(state => ({ expanded: !state.expanded }));
   // };
 
+  formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  }
+
   componentDidMount() {
     if (!this._isMounted) {
         this.getTopTracks();
+        this.getAlbums();
+
       }
   }
 
@@ -94,20 +96,24 @@ class ArtistSidebar extends React.Component {
   async getTopTracks() {
     const tracksObject = await this.props.spotifyClient.getArtistTopTracks(this.state.rootArtist.id, "US");
     console.log(Object.values(tracksObject.tracks));
-    var trackNames = Object.values(tracksObject.tracks).map(function (track) {
-        return track.name
-    });
-    var trackIDs = Object.values(tracksObject.tracks).map(function (track) {
-        return track.id
-    });
     var trackArray = Object.values(tracksObject.tracks).map(function (track) {
         return [track.name, track.id]
     });
     console.log(trackArray);
     this.setState({
-        topTrackNames: trackNames,
-        topTrackIDs: trackIDs,
         topTrackArray: trackArray,
+    });
+  }
+
+  async getAlbums () {
+    const albumObject = await this.props.spotifyClient.getArtistAlbums(this.state.rootArtist.id, "album");
+    console.log(Object.values(albumObject.items));
+    var albumArray = Object.values(albumObject.items).map(function (album) {
+      return  [album.name, album.images[0].url, album.id, album.external_urls.spotify, album.release_date.substring(0,4)]
+    });
+    console.log(albumArray);
+    this.setState({
+      albumArray: albumArray,
     });
   }
 
@@ -140,23 +146,11 @@ class ArtistSidebar extends React.Component {
                     <div>
                         <a href={this.state.rootArtist.external_urls.spotify} target="_blank">View Artist on Spotify</a>
                     </div>
-                    <div>Followers: {this.state.rootArtist.followers.total}</div>
+                    <div>Followers: {this.formatNumber(this.state.rootArtist.followers.total)}</div>
                     <div>Popularity: {this.state.rootArtist.popularity}</div>
                     {/* {this.state.topTracks}  */}
                 </Typography>
               </CardContent>
-              <CardContent>
-                <Typography variant="h6" >
-                    Top Tracks:
-                </Typography>
-              </CardContent>
-              {this.state.topTrackArray.map(song => (
-                    <CardContent>
-                        <Typography variant="subtitle2" gutterBottom={false}>
-                            {song[0]} 
-                        </Typography>
-                    </CardContent>
-              ))}
               <CardContent>
                 <Typography gutterBottom variant={"h6"} >Genres:</Typography> 
                 {this.state.rootArtist.genres.map(genre => (
@@ -172,6 +166,22 @@ class ArtistSidebar extends React.Component {
                     />
                 ))}
               </CardContent>
+              <CardContent>
+                <Typography variant="h6" >
+                    Top Tracks:
+                </Typography>
+              </CardContent>
+              {this.state.topTrackArray.map(song => (
+                    <CardContent>
+                        <Typography variant="subtitle2" gutterBottom={false}>
+                            {song[0]} 
+                        </Typography>
+                    </CardContent>
+              ))}
+              {this.state.albumArray.map(album => (
+                <AlbumCard name={album[0]} imageURL={album[1]}/>
+              ))}
+             
 
           </CardActionArea>
           <CardActions>
@@ -189,15 +199,3 @@ class ArtistSidebar extends React.Component {
 }
 
 export default withStyles(styles)(ArtistSidebar);
-
-// async getTracks() {
-//   const tracks = await fetch(`https://api.spotify.com/v1/artists/${this.state.rootArtist.id}/top-tracks`, {
-//     method: 'GET',
-//     headers: { 
-//       Authorization: this.state.authToken,
-//     }
-//     });
-//   const tracksJson = await tracks.json();
-//   this.setState({
-//     tracks: tracksJson.tracks,
-//   })
