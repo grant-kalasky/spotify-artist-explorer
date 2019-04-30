@@ -10,17 +10,19 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        authenticated: false,
-        artists: [],
-        devices: [],
-        currentDevice: "",
-        authToken: "",
-        mySpotifyClient: "",
-        rootArtist: "",
-        isRootSelected: false
+      authenticated: false,
+      artists: [],
+      devices: [],
+      currentDevice: "",
+      authToken: "",
+      mySpotifyClient: "",
+      rootArtist: "",
+      selectedArtist: "",
+      isRootSelected: false
     };
 
     this.handleSelectArtist = this.handleSelectArtist.bind(this);
+    this.handleArtistExpand = this.handleArtistExpand.bind(this);
   }
 
   async componentDidMount() {
@@ -47,7 +49,14 @@ export default class App extends React.Component {
   handleSelectArtist(artist) {
     this.setState({
       rootArtist: artist,
+      selectedArtist: artist,
       isRootSelected: true
+    });
+  }
+
+  handleArtistExpand(node) {
+    this.setState({
+      selectedArtist: node.artist
     });
   }
 
@@ -56,36 +65,38 @@ export default class App extends React.Component {
       authenticated,
       mySpotifyClient,
       rootArtist,
+      selectedArtist,
       isRootSelected
     } = this.state;
     if (!authenticated) {
       return (
-        <a
+        <a 
           href={`https://accounts.spotify.com/authorize/?client_id=c905808b09014699b50463170c5c27cb&response_type=token&redirect_uri=${window
-              .location.origin +
-              window.location
-              .pathname}&scope=user-read-playback-state user-modify-playback-state user-top-read user-read-private`}
-          >
+            .location.origin +
+            window.location
+            .pathname}&scope=user-read-playback-state user-modify-playback-state user-top-read user-read-private`}
+          className="login"
+        >
         Login with Spotify
         </a>
       );
     }
     return (
       <div className="flex-container">
-          <ArtistInput spotifyClient={mySpotifyClient} onSubmit={this.handleSelectArtist} />
-          <div className="tree-container" >
+        <ArtistInput spotifyClient={mySpotifyClient} onSubmit={this.handleSelectArtist} />
+        <div className="tree-container">
+          {isRootSelected && 
+            <ArtistTree spotifyClient={mySpotifyClient} root={rootArtist} onExpand={this.handleArtistExpand} />
+          }
+        </div>
+        <div className="sidebar-container">
+          <div className="card-container">
             {isRootSelected && 
-              <ArtistTree spotifyClient={mySpotifyClient} root={rootArtist} />
+              <ArtistSidebar spotifyClient={mySpotifyClient} artist={selectedArtist} />
             }
           </div>
-          <div className="sidebar-container" >
-            <div className="card-container" >
-              {isRootSelected && 
-                <ArtistSidebar spotifyClient={mySpotifyClient} root={rootArtist} />
-              }
-            </div>
-          </div>
         </div>
+      </div>
     );
   }
 }

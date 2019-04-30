@@ -22,11 +22,11 @@ export default class ArtistInput extends React.Component {
     const newArtistValue = e.target.value;
     this.setState({ 
       search: newArtistValue
-     });
+    });
   }
 
-  async handleSubmit(ev) {
-    ev.preventDefault();
+  async handleSubmit(e) {
+    e.preventDefault();
     const {
       artists: { items: artistResults }
     } = await this.props.spotifyClient.searchArtists(this.state.search, {
@@ -58,9 +58,9 @@ export default class ArtistInput extends React.Component {
           <List>
             {this.state.artistResults.map(artist => (
               <ListItem button 
-                  key={artist.id}
-                  onClick={() => this.handleClick(artist)}
-                  divider={true}>
+                key={artist.id}
+                onClick={() => this.handleClick(artist)}
+                divider={true}>
                 <ListItemText primary={artist.name} />
               </ListItem>
             ))}

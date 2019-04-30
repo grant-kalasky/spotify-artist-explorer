@@ -42,6 +42,7 @@ export default class ArtistTree extends React.Component {
   async createTree() {
     const rootArtist = this.state.rootArtist;
     var rootNode = {
+      artist: rootArtist,
       name: rootArtist.name,
       _collapsed: true,
       children: []
@@ -66,15 +67,14 @@ export default class ArtistTree extends React.Component {
     if (children.length === 0 && currDepth < depthLimit) {
       for (let i = 0; i < childLimit; i++) {
         let currNode = {
+          artist: rootRelatedArtists[i],
           name: rootRelatedArtists[i].name,
           _collapsed: true,
           children: []
         }
         currNode.children = await this.addChildren(rootRelatedArtists[i], currNode.children, currDepth + 1);
-
         children.push(currNode);
       }
-      
     }
     return children;
   }
@@ -92,7 +92,8 @@ export default class ArtistTree extends React.Component {
       return (
         <div className="tree-component-wrapper">
           <Tree 
-            data={this.state.treeData} 
+            data={this.state.treeData}
+            onClick={this.props.onExpand}
             translate={this.state.translate}
           />
         </div>

@@ -86,8 +86,8 @@ class ArtistSidebar extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.root !== prevProps.root) {
-      this.setState({ rootArtist: this.props.root });
+    if (this.props.artist !== prevProps.artist) {
+      this.setState({ artist: this.props.artist });
       this._isMounted = false;
       this.componentDidMount();
     }
@@ -99,7 +99,6 @@ class ArtistSidebar extends React.Component {
     var trackArray = Object.values(tracksObject.tracks).map(function (track) {
         return [track.name, track.id]
     });
-    console.log(trackArray);
     this.setState({
         topTrackArray: trackArray,
     });
@@ -128,72 +127,82 @@ class ArtistSidebar extends React.Component {
     const { classes } = this.props;
 
     return (
-        <Card className={classes.card} onMouseOver={this.onMouseOver} 
-              onMouseOut={this.onMouseOut}>
-          <CardActionArea>
-              <CardMedia
-              className={classes.media}
-              image={this.state.rootArtist.images[0].url}
-              style = {styles.media}
+      <Card className={classes.card} onMouseOver={this.onMouseOver} 
+          onMouseOut={this.onMouseOut}>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image={this.state.artist.images[0].url}
+            style={styles.media}
+          />
+        </CardActionArea>
+        <CardActionArea>
+          <CardContent>
+            <Typography gutterBottom variant="h4" align="left">
+              {this.state.artist.name}
+            </Typography>
+            <Typography variant="subtitle1">
+              <div>
+                <a href={this.state.artist.external_urls.spotify} target="_blank">View Artist on Spotify</a>
+              </div>
+              <div>Followers: {this.state.artist.followers.total}</div>
+              <div>Popularity: {this.state.artist.popularity}</div>
+              {/* {this.state.topTracks}  */}
+            </Typography>
+          </CardContent>
+          <CardContent>
+            <Typography variant="h6">
+              Top Tracks: 
+            </Typography>
+          </CardContent>
+          {this.state.topTrackArray.map(song => (
+            <CardContent>
+              <Typography variant="subtitle2" gutterBottom={false}>
+                {song[0]} 
+              </Typography>
+            </CardContent>
+          ))}
+          <CardContent>
+            <Typography gutterBottom variant={"h6"}>Genres:</Typography> 
+            {this.state.artist.genres.map(genre => (
+              <Chip 
+                className={classes.chip}
+                label={genre} 
+                color="secondary"
+                component="a"
+                target="_blank" 
+                clickable
+                href={`https://open.spotify.com/search/results/${genre}`}
+                key={genre.toString()}
               />
-          </CardActionArea>
-          <CardActionArea>
-              <CardContent>
-                <Typography gutterBottom variant="h4" align="left" >
-                    {this.state.rootArtist.name}
-                </Typography>
-                <Typography variant="subtitle1" >
-                    <div>
-                        <a href={this.state.rootArtist.external_urls.spotify} target="_blank">View Artist on Spotify</a>
-                    </div>
-                    <div>Followers: {this.formatNumber(this.state.rootArtist.followers.total)}</div>
-                    <div>Popularity: {this.state.rootArtist.popularity}</div>
-                    {/* {this.state.topTracks}  */}
-                </Typography>
-              </CardContent>
-              <CardContent>
-                <Typography gutterBottom variant={"h6"} >Genres:</Typography> 
-                {this.state.rootArtist.genres.map(genre => (
-                    <Chip 
-                    className={classes.chip}
-                    label={genre} 
-                    color="secondary"
-                    component="a"
-                    target="_blank" 
-                    clickable
-                    href={`https://open.spotify.com/search/results/${genre}`}
-                    key={genre.toString()}
-                    />
-                ))}
-              </CardContent>
-              <CardContent>
-                <Typography variant="h6" >
-                    Top Tracks:
-                </Typography>
-              </CardContent>
-              {this.state.topTrackArray.map(song => (
-                    <CardContent>
-                        <Typography variant="subtitle2" gutterBottom={false}>
-                            {song[0]} 
-                        </Typography>
-                    </CardContent>
-              ))}
-              {this.state.albumArray.map(album => (
-                <AlbumCard name={album[0]} imageURL={album[1]}/>
-              ))}
-             
-
-          </CardActionArea>
-          <CardActions>
-              {/* <Button size="small" color="primary">
-              Action1 
-              </Button>
-              <Button size="small" color="primary">
-              Action2
-              </Button> */}
-              {/* <MediaControlCard></MediaControlCard> */}
-          </CardActions>
-        </Card>
+            ))}
+          </CardContent>
+          <CardContent>
+            <Typography variant="h6" >
+                Top Tracks:
+            </Typography>
+          </CardContent>
+            {this.state.topTrackArray.map(song => (
+                  <CardContent>
+                      <Typography variant="subtitle2" gutterBottom={false}>
+                          {song[0]} 
+                      </Typography>
+                  </CardContent>
+            ))}
+            {this.state.albumArray.map(album => (
+              <AlbumCard name={album[0]} imageURL={album[1]}/>
+            ))}
+        </CardActionArea>
+        <CardActions>
+          {/* <Button size="small" color="primary">
+          Action1 
+          </Button>
+          <Button size="small" color="primary">
+          Action2
+          </Button> */}
+          {/* <MediaControlCard></MediaControlCard> */}
+        </CardActions>
+      </Card>
     );
   }
 }
