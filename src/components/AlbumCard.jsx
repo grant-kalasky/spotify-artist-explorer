@@ -24,18 +24,17 @@ import {
 
 const styles = theme => ({
     card: {
-      borderRadius: 10
+      borderRadius: 10,
+      margin: 50
     },
     media: {
-      height: 0,
+      // height: 0,
       paddingTop: '56.25%', // 16:9
-      marginTop: '30'
+      // marginTop: '30'
+      objectFit: 'cover'
     },
     root: {
       backgroundColor: 'white'
-    },
-    chip: {
-      margin: theme.spacing.unit - 5
     },
     actions: {
       display: 'flex'
@@ -63,7 +62,7 @@ class AlbumCard extends React.Component {
             style={styles.media}
           />
           <CardContent>
-            <Typography gutterBottom variant="h6" align="center">
+            <Typography gutterBottom variant="subtitle1" align="center">
               {this.props.name}
             </Typography>
           </CardContent>

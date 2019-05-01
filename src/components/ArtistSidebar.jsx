@@ -1,16 +1,25 @@
 import React from 'react';
 import {
-    Card,
-    CardHeader,
-    CardActionArea,
-    CardContent,
-    CardMedia,
-    CardActions,
-    Checkbox,
-    Chip,
-    Button,
-    Avatar,
-    Typography
+  Card,
+  CardHeader,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  CardActions,
+  Checkbox,
+  Chip,
+  Button,
+  Avatar,
+  Typography,
+  Grid,
+  GridLlist,
+  GridListTile,
+  GridListTileBar,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow
 } from "@material-ui/core";
 import {
   withStyles,
@@ -102,7 +111,6 @@ class ArtistSidebar extends React.Component {
     this.setState({
       topTrackArray: trackArray
     });
-
     this._isMounted = true;
   }
 
@@ -154,18 +162,10 @@ class ArtistSidebar extends React.Component {
                   View Artist on Spotify
                 </a>
               </div>
-              <div>Followers: {this.formatNumber(this.state.rootArtist.followers.total)}</div>
-              <div>Popularity: {this.state.rootArtist.popularity}/100</div>
+              <div>Followers:  {this.formatNumber(this.state.rootArtist.followers.total)}</div>
+              <div>Popularity:  {this.state.rootArtist.popularity}/100</div>
             </Typography>
           </CardContent>
-          <CardContent>
-            <Typography variant="h6">Top Tracks</Typography>
-          </CardContent>
-          {this.state.topTrackArray.map(song => (
-            <CardContent key={song.toString()}>
-              <Typography>{song[0]}</Typography>
-            </CardContent>
-          ))}
           <CardContent>
             <Typography variant="h6">Genres</Typography> 
             {this.state.rootArtist.genres.map(genre => (
@@ -182,10 +182,19 @@ class ArtistSidebar extends React.Component {
             ))}
           </CardContent>
           <CardContent>
+            <Typography variant="h6">Top Tracks</Typography>
+          </CardContent>
+          {this.state.topTrackArray.map(song => (
+            <CardContent key={song.toString()}>
+              <Typography variant="subtitle1">{song[0]}</Typography>
+            </CardContent>
+          ))}
+          <CardContent>
             <Typography gutterBottom variant="h6">Albums</Typography> 
             {this.state.albumArray.map(album => (
               <AlbumCard key={album.toString()} name={album[0]} imageURL={album[1]} />
             ))}
+
           </CardContent>
         </CardActionArea>
         <CardActions>
