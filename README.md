@@ -2,6 +2,8 @@
 
 **Team Members:** Liem Nguyen, Brandon Fang, Grant Kalasky
 
+**Link:** https://spotifyartistexplorer.netlify.com/ 
+
 **Prompt:** Spotify Client
 
 ### Abstract
