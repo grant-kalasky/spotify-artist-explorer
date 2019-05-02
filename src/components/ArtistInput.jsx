@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/artistInput.css';
+import '../styles/ArtistInput.css';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import { ListItem, ListItemText } from '@material-ui/core';

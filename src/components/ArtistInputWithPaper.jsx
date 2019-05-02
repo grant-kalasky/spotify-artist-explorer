@@ -21,14 +21,14 @@ export default class ArtistInputWithPaper extends React.Component {
   }
 
   handleChange(e) {
-    const newAristValue = e.target.value;
+    const newArtistValue = e.target.value;
     this.setState({ 
-      search: newAristValue
-     });
+      search: newArtistValue
+    });
   }
 
-  async handleSubmit(ev) {
-    ev.preventDefault();
+  async handleSubmit(e) {
+    e.preventDefault();
     const {
       artists: { items: artistResults }
     } = await this.props.spotifyClient.searchArtists(this.state.search, {
@@ -54,7 +54,7 @@ export default class ArtistInputWithPaper extends React.Component {
     //         onChange={this.handleChange}
     //         fullWidth={true}
     //       />
-    //       <List >
+    //       <List>
     //         {this.state.artistResults.map(artist => (
     //           <ListItem button onClick={this.handleClick} divider={true}>
     //             <ListItemText primary={artist.name} />
@@ -63,24 +63,23 @@ export default class ArtistInputWithPaper extends React.Component {
     //       </List>
     //     </form>
     //   </div>
-        <div className="artist-search-container">
-            <Paper className="root" elevation={1}>
-                <InputBase className="input" placeholder="Search for artist" onChange={this.handleChange}/>
-                <IconButton classname="iconButton" aria-label="Search" onClick={this.handleSubmit} >
-                    <SearchIcon />
-                </IconButton>
-            </Paper>
-            <Paper>
-              <List >
-                {this.state.artistResults.map(artist => (
-                    <ListItem button onClick={this.handleClick} divider={true}>
-                        <ListItemText primary={artist.name} />
-                    </ListItem>
-                ))}
-              </List>
-            </Paper>
-        </div>
-        
+      <div className="artist-search-container">
+        <Paper className="root" elevation={1}>
+          <InputBase className="input" placeholder="Search for artist" onChange={this.handleChange} />
+          <IconButton classname="iconButton" aria-label="Search" onClick={this.handleSubmit}>
+              <SearchIcon />
+          </IconButton>
+        </Paper>
+        <Paper>
+          <List>
+            {this.state.artistResults.map(artist => (
+                <ListItem button onClick={this.handleClick} divider={true}>
+                    <ListItemText primary={artist.name} />
+                </ListItem>
+            ))}
+          </List>
+        </Paper>
+      </div>
     );
   }
 }

@@ -23,22 +23,22 @@ import {
 } from "@material-ui/core/styles";
 
 const styles = theme => ({
-    card: {
-      borderRadius: 10,
-      margin: 50
-    },
-    media: {
-      // height: 0,
-      paddingTop: '56.25%', // 16:9
-      // marginTop: '30'
-      objectFit: 'cover'
-    },
-    root: {
-      backgroundColor: 'white'
-    },
-    actions: {
-      display: 'flex'
-    }
+  card: {
+    borderRadius: 10,
+    margin: 50
+  },
+  media: {
+    // height: 0,
+    paddingTop: '56.25%', // 16:9
+    // marginTop: '30',
+    objectFit: 'cover'
+  },
+  root: {
+    backgroundColor: 'white'
+  },
+  actions: {
+    display: 'flex'
+  }
 });
 
 class AlbumCard extends React.Component {

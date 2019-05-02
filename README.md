@@ -28,7 +28,7 @@ For the UI, we used Google's [Material-UI](https://material-ui.com/) component l
 
 ### Division of Labor
 
-Grant Kalasky started therepository, built the ArtistInput component, and worked with Liem to create the ArtistTree component.
+Grant Kalasky started the repository, built the ArtistInput component, and worked with Liem to create the ArtistTree component.
 
 Liem Nguyen worked with Grant to create the ArtistTree component and added dynamic rendering to the ArtistSidebar component. 
 

@@ -125,7 +125,6 @@ class ArtistSidebar extends React.Component {
     this.setState({
       albumArray: albumArray
     });
-
     this._isMounted = true;
   }
 
@@ -162,8 +161,8 @@ class ArtistSidebar extends React.Component {
                   View Artist on Spotify
                 </a>
               </div>
-              <div>Followers:  {this.formatNumber(this.state.rootArtist.followers.total)}</div>
-              <div>Popularity:  {this.state.rootArtist.popularity}/100</div>
+              <div>Followers: {this.formatNumber(this.state.rootArtist.followers.total)}</div>
+              <div>Popularity: {this.state.rootArtist.popularity}/100</div>
             </Typography>
           </CardContent>
           <CardContent>
@@ -186,7 +185,9 @@ class ArtistSidebar extends React.Component {
           </CardContent>
           {this.state.topTrackArray.map(song => (
             <CardContent key={song.toString()}>
-              <Typography variant="subtitle1">{song[0]}</Typography>
+              <Typography variant="subtitle1">
+                {song[0]}
+              </Typography>
             </CardContent>
           ))}
           <CardContent>
@@ -194,7 +195,6 @@ class ArtistSidebar extends React.Component {
             {this.state.albumArray.map(album => (
               <AlbumCard key={album.toString()} name={album[0]} imageURL={album[1]} />
             ))}
-
           </CardContent>
         </CardActionArea>
         <CardActions>

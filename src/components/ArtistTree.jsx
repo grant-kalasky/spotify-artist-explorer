@@ -47,7 +47,6 @@ export default class ArtistTree extends React.Component {
     this.setState({ 
       treeData: [rootNode]
     });
-
     this._isMounted = true;
   }
 

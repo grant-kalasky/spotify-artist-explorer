@@ -65,6 +65,7 @@ export default class App extends React.Component {
       selectedArtist,
       isRootSelected
     } = this.state;
+    
     if (!authenticated) {
       return (
         <a 
