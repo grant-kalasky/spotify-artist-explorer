@@ -1,18 +1,16 @@
 import React from 'react';
 import {
-    Card,
-    CardActionArea,
-    CardContent,
-    CardMedia,
-    Typography,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Typography
 } from "@material-ui/core";
-import {
-  withStyles
-} from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
   card: {
-    borderRadius: 10,
+    borderRadius: 10
   },
   media: {
     paddingTop: '56.25%',

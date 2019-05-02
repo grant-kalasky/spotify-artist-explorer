@@ -5,11 +5,9 @@ import {
   CardContent,
   CardMedia,
   Chip,
-  Typography,
+  Typography
 } from "@material-ui/core";
-import {
-  withStyles,
-} from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import AlbumCard from './AlbumCard';
 
 const styles = theme => ({

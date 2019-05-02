@@ -14,11 +14,11 @@ For the UI, we used Google's [Material-UI](https://material-ui.com/) component l
 
 ### Components 
 
-1. **ArtistInput** - Allows users to search for and select an artist to be used as root of tree
+1. **ArtistInput** - Allows users to search for and select an artist to be used as root of tree.
 
-2. **ArtistTree** - Creates a tree visualization of related artists given a root artist that is selected from ArtistInput
+2. **ArtistTree** - Creates a tree visualization of related artists given a root artist that is selected from ArtistInput.
 
-3. **ArtistSidebar** - Dynamically displays information about a selected artist in the ArtistTree. Artist information includes number of followers, Spotify popularity, Spotify link, top songs, and genres.
+3. **ArtistSidebar** - Dynamically displays information about a selected artist in the ArtistTree. Artist information includes number of followers, Spotify popularity, Spotify link, top songs and genres, and albums.
 
 ### Features
 
