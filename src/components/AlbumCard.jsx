@@ -1,36 +1,21 @@
 import React from 'react';
 import {
     Card,
-    CardHeader,
     CardActionArea,
     CardContent,
     CardMedia,
-    CardActions,
-    Checkbox,
-    Chip,
-    Button,
-    Avatar,
     Typography,
-    Grid,
-    GridList,
-    GridListTile,
-    GridListTileBar
 } from "@material-ui/core";
 import {
-  withStyles,
-  MuiThemeProvider,
-  createMuiTheme
+  withStyles
 } from "@material-ui/core/styles";
 
 const styles = theme => ({
   card: {
     borderRadius: 10,
-    margin: 50
   },
   media: {
-    // height: 0,
-    paddingTop: '56.25%', // 16:9
-    // marginTop: '30',
+    paddingTop: '56.25%',
     objectFit: 'cover'
   },
   root: {

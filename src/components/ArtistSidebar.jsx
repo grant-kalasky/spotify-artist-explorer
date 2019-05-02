@@ -1,37 +1,16 @@
 import React from 'react';
 import {
   Card,
-  CardHeader,
   CardActionArea,
   CardContent,
   CardMedia,
-  CardActions,
-  Checkbox,
   Chip,
-  Button,
-  Avatar,
   Typography,
-  Grid,
-  GridLlist,
-  GridListTile,
-  GridListTileBar,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow
 } from "@material-ui/core";
 import {
   withStyles,
-  MuiThemeProvider,
-  createMuiTheme
 } from "@material-ui/core/styles";
-import IconButton from '@material-ui/core/IconButton';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
 import AlbumCard from './AlbumCard';
-// import MediaControlCard from './MediaControlCard';
 
 const styles = theme => ({
   card: {
@@ -77,10 +56,6 @@ class ArtistSidebar extends React.Component {
   
   onMouseOver = () => this.setState({ shadow: 3 });
   onMouseOut = () => this.setState({ shadow: 1 });
-
-  // handleExpandClick = () => {
-  //   this.setState(prevState => ({ expanded: !prevState.expanded }));
-  // };
 
   formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -128,18 +103,11 @@ class ArtistSidebar extends React.Component {
     this._isMounted = true;
   }
 
-  async startPlayback(songId) {
-    await this.spotifyClient.play({
-      device_id: this.state.currentDevice,
-      uris: [`spotify:track:${songId}`]
-    });
-  }
-
   render() {
     const { classes } = this.props;
 
     return (
-      <Card className={classes.card} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
+      <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
@@ -197,15 +165,6 @@ class ArtistSidebar extends React.Component {
             ))}
           </CardContent>
         </CardActionArea>
-        <CardActions>
-          {/* <Button size="small" color="primary">
-            Action1 
-          </Button>
-          <Button size="small" color="primary">
-            Action2
-          </Button> */}
-          {/* <MediaControlCard></MediaControlCard> */}
-        </CardActions>
       </Card>
     );
   }
