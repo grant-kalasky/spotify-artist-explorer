@@ -142,7 +142,7 @@ class ArtistSidebar extends React.Component {
                 component="a"
                 target="_blank" 
                 clickable
-                href={`https://open.spotify.com/search/${genre}`}
+                href={`https://open.spotify.com/search/results/${genre}`}
               />
             ))}
           </CardContent>
