@@ -8,7 +8,7 @@
     "react": "^16.8.6",
     "react-d3-tree": "^1.12.3",
     "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8",
+    "react-scripts": "5.0.1",
     "spotify-web-api-js": "^1.2.0"
   },
   "scripts": {
